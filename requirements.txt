@@ -8,7 +8,7 @@ pyworld
 torchcrepe
 praat-parselmouth>=0.4.2
 numpy<=1.23.5
-fairseq==0.12.2
+# fairseq==0.12.2
 faiss-cpu==1.7.3
 av
 loguru

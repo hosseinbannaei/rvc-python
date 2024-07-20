@@ -10,6 +10,17 @@ import soundfile as sf
 from rvc_python.modules.vc.modules import VC
 from rvc_python.download_model import download_rvc_models
 
+from rvc_python.modules.vc.utils import load_hubert
+
+hu_model = None
+
+def load_rvc_model(device="cpu:0"):
+    global hu_model
+    lib_dir = os.path.dirname(os.path.abspath(__file__))
+    config = Config(lib_dir,device)
+    hu_model = load_hubert(config, config.lib_dir)
+    return hu_model
+
 def infer_file(
     input_path,
     model_path,
@@ -44,7 +55,8 @@ def infer_file(
         rms_mix_rate=rms_mix_rate,
         protect=protect,
         f0_file="",
-        file_index2=""
+        file_index2="",
+        hu_model=hu_model
     )
     wavfile.write(opt_path, vc.tgt_sr, wav_opt)
     return opt_path

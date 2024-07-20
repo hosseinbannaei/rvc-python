@@ -153,6 +153,7 @@ class VC:
         resample_sr,
         rms_mix_rate,
         protect,
+        hu_model,
     ):
         if input_audio_path is None:
             return "You need to upload an audio", None
@@ -163,6 +164,9 @@ class VC:
             if audio_max > 1:
                 audio /= audio_max
             times = [0, 0, 0]
+
+            if hu_model is not None:
+                self.hubert_model = hu_model
 
             if self.hubert_model is None:
                 self.hubert_model = load_hubert(self.config,self.lib_dir)
